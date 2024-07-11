@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { motion } from 'framer-motion';
 import logo from '../../Assets/NFT Lord.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
@@ -10,7 +11,13 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 const Footer = () => {
   return (
     <div className='footer'>
-      <div className='container-footer'>
+      <motion.div
+        className='container-footer'
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        viewport={{ once: true, amount: 0.1 }}
+        >
         <div className='foot1'>
             <img src={logo} alt="" />
             <div className='container-social'>
@@ -48,7 +55,7 @@ const Footer = () => {
             <p className='foot-p'>Live Action</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
