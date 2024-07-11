@@ -1,5 +1,6 @@
 import React from 'react'
 import './Gallery.css'
+import { motion } from 'framer-motion';
 import image4 from '../../Assets/monkey4.png';
 import image5 from '../../Assets/monkey5.png';
 import image6 from '../../Assets/monkey6.png';
@@ -8,7 +9,7 @@ import left_arrow from '../../Assets/arrow-left.png';
 const Gallery = () => {
   return (
     <div className='gallery'>
-      <Motion.div
+      <motion.div
         className='gallery-text'
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -16,7 +17,7 @@ const Gallery = () => {
         viewport={{ once: true, amount: 0.1 }}
        >
         <h1>Featured Artwork Collection</h1>
-      </Motion.div>
+      </motion.div>
       <motion.div
         className='gallery-btn'
         initial={{ opacity: 0, y: 100 }}
