@@ -1,0 +1,132 @@
+.footer {
+    width: 100%;
+    min-height: 50vh;
+    background: linear-gradient(to right, #48086e, #1a0229);
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    position: relative;
+}
+
+.container-footer {
+    width: 100%;
+    height: auto; /* Allow height to adjust based on content */
+    background-color: #08061f;
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of columns */
+    justify-content: space-around; /* Space out columns evenly */
+    padding: 20px; /* Add padding for better spacing */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+.foot1, .foot2, .foot3, .foot4 {
+    flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
+    max-width: 500px; /* Maximum width for each column */
+    margin: 20px;
+    text-align: center; /* Center text for better alignment on smaller screens */
+}
+
+.foot1 {
+    background-color: transparent;
+}
+
+.foot1 img {
+    height: 50px;
+}
+
+.foot1 p {
+    color: white;
+    margin-top: 50px;
+}
+
+.container-social {
+    display: flex;
+    justify-content: center; /* Center social buttons */
+    margin-top: 10px;
+}
+
+.btn-social {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: #261437;
+    cursor: pointer;
+    border: none;
+    margin: 0 5px; /* Margin on both sides for consistent spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-social:hover {
+    background: linear-gradient(to right, #8629fc, #ce11f8);
+}
+
+.foot-h1 {
+    color: #fff;
+    font-size: 23px;
+    margin-bottom: 20px; /* Space between heading and paragraph */
+}
+
+.container-para {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the paragraphs */
+}
+
+.foot-p {
+    color: #fff;
+    margin: 6px 0;
+    cursor: pointer;
+}
+
+.foot-p:hover {
+    font-weight: 600;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .footer {
+        min-height: 30vh;
+    }
+    .container-footer {
+        flex-wrap: wrap; /* Wrap columns */
+        justify-content: space-between; /* Distribute columns evenly */
+    }
+
+    .foot1, .foot2, .foot3, .foot4 {
+        max-width: 100%; /* Adjust width for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container-footer {
+        flex-direction: column;
+        align-items: center; /* Center align the columns */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .foot1, .foot2, .foot3, .foot4 {
+        max-width: none; /* Remove max-width constraint */
+        width: 100%; /* Full width for each column */
+        margin: 10px 0; /* Margin for spacing between columns */
+    }
+
+    .foot1 {
+        text-align: center; /* Center align content */
+    }
+
+    .container-social {
+        justify-content: center; /* Center social buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .foot-h1 {
+        font-size: 20px; /* Smaller font size for smaller screens */
+    }
+
+    .foot-p {
+        font-size: 14px; /* Smaller font size for paragraph */
+    }
+}

@@ -1,0 +1,405 @@
+.art {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #48086e, #1a0229);
+    position: relative;
+}
+.container-art {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(to right, #48086e, #1a0229);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+.btn-arrow {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    padding: 5px;
+    border: 2px solid transparent;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    background-clip: padding-box;
+    margin-right: 850px;
+}
+
+.btn-arrow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px; /* Match the button's rounded corners */
+    padding: 3px; /* Match the border width */
+    background: linear-gradient(to bottom, #4b08c6, #d201de); /* Gradient background */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+  .btn-arrow:hover {
+    filter: brightness(1.2);
+  }
+.right-arrow {
+    height: 40px;
+    position: relative;
+}
+.monkey1 {
+    height: 445px;
+    width: 355px;
+    cursor: pointer;
+    padding: 8px;
+    position: absolute;
+    border: 5px solid transparent;
+    display: block;
+    border-radius: 20px;
+    background: linear-gradient(to right, #e505fe, #a171fe);
+    background-clip: padding-box;
+}
+.monkey2 {
+    height: 445px;
+    width: 355px;
+    cursor: pointer;
+    padding: 8px;
+    position: absolute;
+    border: 5px solid transparent;
+    display: block;
+    border-radius: 20px;
+    background: linear-gradient(to right, #e504fe, #a171ff);
+    background-clip: padding-box;
+    margin-left: 200px;
+}
+.monkey3 {
+    height: 445px;
+    width: 355px;
+    position: absolute;
+    cursor: pointer;
+    padding: 8px;
+    border: 5px solid transparent;
+    display: block;
+    border-radius: 20px;
+    background: linear-gradient(to right, #a171ff, #e506ff);
+    background-clip: padding-box;
+    margin-right: 200px;
+}
+.btn-arrow2 {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-clip: padding-box;
+    position: relative;
+}
+.btn-arrow2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px; /* Match the button's rounded corners */
+    padding: 3px; /* Match the border width */
+    background: linear-gradient(to bottom, #4b08c6, #d201de); /* Gradient background */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+.btn-arrow2:hover {
+    filter: brightness(1.2);
+}
+.left-arrow {
+    height: 40px;
+    position: relative;
+}
+.container-text {
+    width: 550px;
+    height: 380px;
+    background: transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+.container-text h1 {
+    color: #fff;
+    font-size: 57px;
+    position: relative;
+}
+.container-text h1 span {
+    background: linear-gradient(to right, #4b08c6, #d201de);
+    -webkit-background-clip: text; /* Apply the gradient to the text */
+    color: transparent; /* Make the original text transparent */
+    position: relative;
+    z-index: 1;
+    font-size: 50px;
+}
+.container-text p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 20px;
+    position: relative;
+}
+.container-text button {
+    margin-top: 40px;
+}
+.container-line {
+    height: 20px;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.line3 {
+    height: 2px;
+    width: 550px;
+    background: linear-gradient(to right, #FF01F7, #762FFE);
+}
+/* Art.css */
+
+/* Existing styles here... */
+
+@media (max-width: 480px) {
+    .container-art {
+      flex-direction: row;
+      height: auto;
+      margin-top: 40px;
+    }
+    .btn-arrow {
+      margin: 10px 0;
+      height: 40px;
+      width: 40px;
+    }
+    .left-arrow {
+        height: 20px;
+    }
+    .btn-arrow2 {
+        margin: 10px 0;
+        height: 40px;
+        width: 40px;
+        margin-left: 280px;
+    }
+    .right-arrow {
+        height: 20px;
+    }
+    .monkey1 {
+      width: 145px;
+      height: 175px;
+      margin: 10px 0;
+      padding: 3px;
+    }
+    .monkey2 {
+        width: 145px;
+        height: 175px;
+        margin: 10px 0;
+        margin-left: 100px;
+        padding: 3px;
+      }
+    .monkey3 {
+        width: 145px;
+        height: 175px;
+        margin: 10px 0;
+        margin-right: 100px;
+        padding: 3px;
+    }
+    .container-text {
+      width: 90%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 70px;
+    }
+    .container-text h1 {
+      font-size: 35px;
+    }
+    .container-text h1 span {
+      font-size: 40px;
+    }
+    .container-text p {
+      font-size: 14px;
+    }
+    .container-text button {
+      margin-top: 270px;
+      margin-left: 170px;
+    }
+    .container-line {
+      height: 10px;
+      margin-top: 100px;
+    }
+    .line3 {
+      width: 100%;
+      height: 1px;
+    }
+  }
+
+/*design for small tablets*/
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .container-art {
+        flex-direction: row;
+        height: auto;
+        margin-top: 40px;
+      }
+      .btn-arrow {
+        margin: 10px 0;
+        height: 50px;
+        width: 50px;
+      }
+      .left-arrow {
+          height: 30px;
+      }
+      .btn-arrow2 {
+          margin: 10px 0;
+          height: 50px;
+          width: 50px;
+          margin-left: 500px;
+      }
+      .right-arrow {
+          height: 30px;
+      }
+      .monkey1 {
+        width: 245px;
+        height: 275px;
+        margin: 10px 0;
+        padding: 5px;
+      }
+      .monkey2 {
+          width: 245px;
+          height: 275px;
+          margin: 10px 0;
+          margin-left: 170px;
+          padding: 5px;
+        }
+      .monkey3 {
+          width: 245px;
+          height: 275px;
+          margin: 10px 0;
+          margin-right: 170px;
+          padding: 5px;
+      }
+      .container-text {
+        width: 50%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 120px;
+      }
+      .container-text h1 {
+        font-size: 35px;
+      }
+      .container-text h1 span {
+        font-size: 40px;
+      }
+      .container-text p {
+        font-size: 14px;
+      }
+      .container-text button {
+        margin-top: 300px;
+        margin-left: 170px;
+      }
+      .container-line {
+        height: 10px;
+        margin-top: 150px;
+      }
+      .line3 {
+        width: 100%;
+        height: 1px;
+      }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+    .container-art {
+        flex-direction: row;
+        height: auto;
+        margin-top: 40px;
+      }
+      .btn-arrow {
+        margin: 10px 0;
+        height: 60px;
+        width: 60px;
+      }
+      .left-arrow {
+          height: 30px;
+      }
+      .btn-arrow2 {
+          margin: 10px 0;
+          height: 60px;
+          width: 60px;
+          margin-left: 600px;
+      }
+      .right-arrow {
+          height: 30px;
+      }
+      .monkey1 {
+        width: 325px;
+        height: 375px;
+        margin: 10px 0;
+        padding: 5px;
+      }
+      .monkey2 {
+          width: 325px;
+          height: 375px;
+          margin: 10px 0;
+          margin-left: 170px;
+          padding: 5px;
+        }
+      .monkey3 {
+          width: 325px;
+          height: 375px;
+          margin: 10px 0;
+          margin-right: 170px;
+          padding: 5px;
+      }
+      .container-text {
+        width: 50%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 200px;
+      }
+      .container-text h1 {
+        font-size: 35px;
+      }
+      .container-text h1 span {
+        font-size: 40px;
+      }
+      .container-text p {
+        font-size: 14px;
+      }
+      .container-text button {
+        margin-top: 330px;
+        margin-left: 290px;
+      }
+      .container-line {
+        height: 10px;
+        margin-top: 150px;
+      }
+      .line3 {
+        width: 60%;
+        height: 2px;
+      }
+}
