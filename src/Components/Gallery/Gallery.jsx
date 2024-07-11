@@ -8,10 +8,22 @@ import left_arrow from '../../Assets/arrow-left.png';
 const Gallery = () => {
   return (
     <div className='gallery'>
-      <div className='gallery-text'>
+      <Motion.div
+        className='gallery-text'
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        viewport={{ once: true, amount: 0.1 }}
+       >
         <h1>Featured Artwork Collection</h1>
-      </div>
-      <div className='gallery-btn'>
+      </Motion.div>
+      <motion.div
+        className='gallery-btn'
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        viewport={{ once: true, amount: 0.1 }}
+        >
       <button className='gradient-button'>
             All NFTs
         </button>
@@ -27,17 +39,29 @@ const Gallery = () => {
         <button className='gradient-button'>
             Trending Cards
         </button>
-      </div>
-      <div className='gallery-img'>
+      </motion.div>
+      <motion.div
+        className='gallery-img'
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        viewport={{ once: true, amount: 0.1 }}
+        >
         <img src={image4} alt="" className='monkey4'/>
         <img src={image5} alt="" className='monkey5'/>
         <img src={image6} alt="" className='monkey6'/>
         <button className='btn-arrow-left'><img src={left_arrow} alt="" className='left-arrow' /></button>
         <button className='btn-arrow-right'><img src={right_arrow} alt="" className='right-arrow' /></button>
-      </div>
-      <div className='container-line'>
+      </motion.div>
+      <motion.div
+        className='container-line'
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        viewport={{ once: true, amount: 0.1 }}
+        >
         <div className='line4'></div>
-      </div>
+      </motion.div>
     </div>
   )
 }
