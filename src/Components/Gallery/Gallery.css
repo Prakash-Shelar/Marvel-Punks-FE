@@ -32,40 +32,52 @@
     background: linear-gradient(to right, #48086e, #1a0229);
 }
 .gradient-button {
-    position: relative;
-    background: none; /* Remove default button background */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 16px; /* Adjust font size as needed */
-    border: 2px solid transparent; /* Transparent border for fallback */
-    border-radius: 20px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
-    background-clip: padding-box; /* Ensure background doesn't cover border */
-    margin: 0 25px;
-  }
-  
-  .gradient-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px; /* Match the button's rounded corners */
-    padding: 2px; /* Match the border width */
-    background: linear-gradient(to right, #4b08c6, #d201de); /* Gradient background */
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-  }
-  
-  .gradient-button:hover::before {
-    filter: brightness(1.2); /* Slightly brighten the gradient on hover */
-  }
-  
+  position: relative;
+  background: none; /* Remove default button background */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  border: none; /* No default border */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  margin: 0 25px;
+  z-index: 1; /* Ensure button content is above the pseudo-elements */
+  overflow: hidden; /* Ensure pseudo-elements do not overflow */
+}
+
+.gradient-button::before,
+.gradient-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px; /* Match the button's rounded corners */
+  z-index: -1; /* Place behind the button content */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.gradient-button::before {
+  background: linear-gradient(to right, #4b08c6, #d201de); /* Gradient background */
+  opacity: 0; /* Initially hide the gradient background */
+}
+
+.gradient-button::after {
+  background: linear-gradient(to right, #4b08c6, #d201de); /* Gradient border background */
+  padding: 2px; /* Create border effect */
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+.gradient-button:hover::before {
+  opacity: 1; /* Show the gradient background on hover */
+}
+
   .gallery-img {
     width: 100%;
     height: 800px;
