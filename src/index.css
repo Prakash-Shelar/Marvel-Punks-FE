@@ -6,3 +6,16 @@
     box-sizing: border-box;
     font-family: "Exo", sans-serif;
 }
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a0229;
+}
+::-webkit-scrollbar-thumb {
+    background: #48086e;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #690c9e;
+}
