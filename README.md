@@ -1,3 +1,3 @@
 # nft-lord
- In this project we use React Js framework to create a wonderful website.
+ In this project we use React Js framework to create a wonderful website.<br>
  for animations we use Framer-Motion which makes the website intereactive.
