@@ -28,12 +28,9 @@ const Navbar = () => {
 
   return (
     <nav>
-      <img 
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      src={logo} alt="Logo" 
-      className='logo-img' />
+      <div className='logo'>
+      <h1>MARVEL PUNKS</h1>
+      </div>
       <motion.ul 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -48,9 +45,8 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        ref={searchContainerRef} className="search-container">
-        <input type="text" placeholder="Search..." />
-        <button><img src={searchIcon} alt="Search" /></button>
+        ref={searchContainerRef} className="connect-btn">
+        <button className='con-btn'>Connect Wallet</button>
       </motion.div>
       <motion.div 
         initial={{ opacity: 0, y: -50 }}
