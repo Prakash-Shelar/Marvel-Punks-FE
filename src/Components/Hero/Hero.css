@@ -115,10 +115,11 @@
   width: 350px;
 }
 
-.monkey {
-  height: 600px;
-  width: 650px;
-  margin-top: -207px;
+.marvel {
+  height: 500px;
+  width: 550px;
+  margin-top: -107px;
+  margin-left: 5%;
 }
 
 /* Desktop ( >= 1200px ) */

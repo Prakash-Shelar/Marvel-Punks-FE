@@ -3,7 +3,7 @@ import './Hero.css'
 import { motion } from 'framer-motion';
 import play from '../../Assets/play.png';
 import arrow from '../../Assets/Arrow design.png';
-import monkey from '../../Assets/Bandar.png';
+import Marvel from '../../Assets/marvel.png';
 const Hero = () => {
   return (
     <div className='hero'>
@@ -13,8 +13,8 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         >
-        <h1>Discover, Collect & Sell <br/>Popular <span>NFTs</span></h1>
-        <p>The world's Biggest advanced commercial center for Crypto collectables <br/>and non-fungible tokens.</p>
+        <h1>Tokenize, Collect & Sell <br/>Marvel <span>Memes</span></h1>
+        <p>World’s only platform connecting Marvel fans to brands <br/>through epic memes</p>
         <div className="button-container">
         <button className='btn1'>Explore</button>
         <button className='btn2'><img src={play} alt="play"/></button>
@@ -37,8 +37,8 @@ const Hero = () => {
           }}
           />
         <img 
-          src={monkey} alt='' 
-          className='monkey'
+          src={Marvel} alt='' 
+          className='marvel'
           />
         </div>
       </motion.div>
