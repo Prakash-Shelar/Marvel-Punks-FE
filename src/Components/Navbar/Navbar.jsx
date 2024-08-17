@@ -74,7 +74,9 @@ const Navbar = () => {
         transition={{ duration: 1 }}
         ref={searchContainerRef} className="connect-btn">
         <button className='con-btn' onClick={connectWallet}>
-          {web3Provider == null ? 'Connect Wallet' : `Connected: ${address}`}
+          {web3Provider == null 
+          ? 'Connect Wallet' 
+          : `Connected: ${address.slice(0,6)}...${address.slice(-4)}`}
         </button>
       </motion.div>
       <motion.div 

@@ -9,11 +9,11 @@ nav {
 
 .logo {
   height: 100px;
-  width: 500px;
+  width: 350px;
+  margin-left: 70px;
 }
 .logo h1 {
   font-size: 2.5rem;
-  margin-top: 30px;
   background: -webkit-linear-gradient(#B53DFF, #EA00FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -74,7 +74,6 @@ nav ul li:hover::after {
   display: flex;
   align-items: center;
   margin-right: 30px;
-  margin-top: 40px;
 }
 
 .con-btn {
@@ -106,7 +105,6 @@ nav ul li:hover::after {
   position: relative;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
   margin-right: 10px;
 }
 
