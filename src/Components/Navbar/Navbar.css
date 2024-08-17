@@ -9,14 +9,16 @@ nav {
 
 .logo {
   height: 100px;
-  width: 350px;
-  margin-left: 70px;
+  width: 570px;
+  margin-left: 50px;
 }
 .logo h1 {
   font-size: 2.5rem;
+  margin-top: 30px;
   background: -webkit-linear-gradient(#B53DFF, #EA00FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  overflow: hidden;
 }
 nav img {
   height: 40px;
