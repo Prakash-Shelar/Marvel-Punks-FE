@@ -181,6 +181,10 @@ nav ul li:hover::after {
     text-align: center;
   }
 
+  .logo{
+    margin-left: 10px;
+  }
+
   .logo h1{
     font-size: 2rem;
   }
