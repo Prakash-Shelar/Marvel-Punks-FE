@@ -181,7 +181,7 @@ nav ul li:hover::after {
     text-align: center;
   }
 
-  .search-container {
+  .connect-btn {
     display: none;
     margin: 1rem auto;
   }
@@ -191,7 +191,7 @@ nav ul li:hover::after {
     margin: 1rem auto;
   }
 
-  .nav-links.open .search-container,
+  .nav-links.open .connect-btn,
   .nav-links.open .signup-button {
     display: flex;
   }
@@ -226,7 +226,7 @@ nav ul li:hover::after {
     text-align: center;
   }
 
-  .search-container {
+  .connect-btn {
     display: none;
     margin: 1rem auto;
   }
@@ -236,7 +236,7 @@ nav ul li:hover::after {
     margin: 1rem auto;
   }
 
-  .nav-links.open .search-container,
+  .nav-links.open .connect-btn,
   .nav-links.open .signup-button {
     display: flex;
   }
