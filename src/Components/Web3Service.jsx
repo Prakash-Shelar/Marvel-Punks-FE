@@ -628,9 +628,10 @@ const Web3Service = () => {
       ]
       
       
-      const web3 = WalletAddress.provider;
+      const web3 = WalletAddress.web3Provider;
+      console.log("Before contract instance")
       const NFTproject = new web3.eth.Contract(abi, process.env.REACT_APP_SMART_CONTRACT_ADDRESS);
-      
+      console.log("Instance created")
 
       try {
         const randomNftResponse = await axios.get(
