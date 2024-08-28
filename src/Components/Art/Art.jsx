@@ -30,8 +30,8 @@ const Art = () => {
       transition={{ duration: 0.8, ease: 'easeInOut' }}
       viewport={{ once: true, amount: 0.1 }}
     >
-    <h1>Awesome <span>NFTs</span> Art Sell & Earn</h1>
-    <p>With Brandname you can now easily trade your NFTs with a fast and huge bid. We have the best gas fee, friendly with the price and value of your assset.</p>
+    <h1>Turn Your <span>Memes</span> Into Crypto Tokens</h1>
+    <p>With MarvelPunks, you can monetize your creativity and sarcasm. We make it easy to tokenize and sell your meme.</p>
     <button className='btn1'>View More</button>
   </motion.div>
   <motion.div

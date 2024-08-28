@@ -30,6 +30,14 @@
     background-color: transparent;
 }
 
+.foot1 h1 {
+    font-size: 2.5rem;
+  background: -webkit-linear-gradient(#B53DFF, #EA00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  overflow: hidden;
+}
+
 .foot1 img {
     height: 50px;
 }

@@ -19,7 +19,7 @@ const Footer = () => {
         viewport={{ once: true, amount: 0.1 }}
         >
         <div className='foot1'>
-            <img src={logo} alt="" />
+            <h1>Marvel Punks</h1>
             <div className='container-social'>
               <button className='btn-social'><FontAwesomeIcon icon={faFacebookF} style={{color: 'white', fontSize: '20px'}}/></button>
               <button className='btn-social'><FontAwesomeIcon icon={faLinkedinIn} style={{color: 'white', fontSize: '20px'}}/></button>

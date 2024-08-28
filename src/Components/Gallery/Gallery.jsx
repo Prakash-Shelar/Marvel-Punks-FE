@@ -16,7 +16,7 @@ const Gallery = () => {
         transition={{ duration: 0.8, ease: 'easeInOut' }}
         viewport={{ once: true, amount: 0.1 }}
        >
-        <h1>Featured Artwork Collection</h1>
+        <h1>Featured Meme Collection</h1>
       </motion.div>
       <motion.div
         className='gallery-btn'
