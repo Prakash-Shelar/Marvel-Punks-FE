@@ -1,5 +1,7 @@
+import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import styled from 'styled-components';
 import arrow from "../../Assets/Arrow design.png";
 import Marvel from "../../Assets/marvel.png";
 import play from "../../Assets/play.png";
@@ -17,11 +19,62 @@ const Hero = () => {
     setShowImageDropper(true);
   };
 
-  // Handle image and NFT name upload from ImageDropper
-  const handleImageUpload = (image, nftName) => {
-    mintNFT(image, nftName); // Call mintNFT with the uploaded image and name
-  };
+  const [pinataHash, setPinataHash] = useState('');
 
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = async (e,nftName) => {
+    try {
+      setUploading(true);
+      let data = new FormData();
+      data.append('file', e.target.files[0]);
+
+      const response = await axios.post(
+        'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        data,
+        {
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+            pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+            pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET_KEY,
+          },
+        }
+      );
+
+      const { IpfsHash } = response.data;
+      console.log("-----------------------",IpfsHash);
+      setUploading(false);
+      setPinataHash(IpfsHash);
+      setError('');
+      mintNFT(pinataHash, nftName);
+    } catch (e) {
+      setError("Couldn't upload to pinata, please try again." + e);
+    }
+  };
+  // Handle image and NFT name upload from ImageDropper
+  // const handleImageUpload = (pinataHash, nftName) => {
+  //   mintNFT(pinataHash, nftName); // Call mintNFT with the uploaded image and name
+  // };
+
+  const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 20px 40px;
+`;
+
+const InputLabel = styled.p`
+  color: #000;
+  margin-top: 20px;
+  margin-bottom: 0;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  &[type='file'] {
+    headname: #fff;
+  }
+`;
   return (
     <div className="hero">
       <motion.div
@@ -38,6 +91,7 @@ const Hero = () => {
           World’s only platform connecting Marvel fans to brands <br />
           through epic memes
         </p>
+        
         <div className="button-container">
           {!nft ? (
             <>
@@ -50,7 +104,11 @@ const Hero = () => {
                   {minting ? "MINTING..." : "Mint"}
                 </button>
               ) : (
-                <ImageDropper onUpload={handleImageUpload} /> // Pass the upload function to ImageDropper
+                <InputContainer>
+                  <InputLabel>Image {uploading && '(Uploading...)'}</InputLabel>
+                  <Input type="file" onChange={handleFileUpload} />
+                </InputContainer>
+                // <ImageDropper onUpload={handleImageUpload} /> // Pass the upload function to ImageDropper
               )}
             </>
           ) : (

@@ -611,7 +611,7 @@ const Web3Service = () => {
   const contractAddress = process.env.REACT_APP_SMART_CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(abi, contractAddress);
 
-  const mintNFT = async (imageData, nftName) => {
+  const mintNFT = async (pinataHash, nftName) => {
     if (!window.ethereum || !window.ethereum.selectedAddress) {
       alert("Please install MetaMask and connect your wallet.");
       return;
@@ -625,23 +625,8 @@ const Web3Service = () => {
     setMinting(true);
 
     try {
-      const formData = new FormData();
-      formData.append("file", imageData);
-
-      // Upload Image to Pinata
-      let imageResponse = await axios.post(
-        "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        formData,
-        {
-          headers: {
-            "Content-Type": `multipart/form-data`,
-            pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-            pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET_KEY,
-          },
-        }
-      );
-
-      const imageUrl = `https://gateway.pinata.cloud/ipfs/${imageResponse.data.IpfsHash}`;
+      
+      const imageUrl = `https://gateway.pinata.cloud/ipfs/${pinataHash}`;
       console.log("NFT Image URL:", imageUrl);
 
       const metadata = {
@@ -660,6 +645,8 @@ const Web3Service = () => {
           },
         }
       );
+      console.log("-----------------", pinataResponse.data.IpfsHash)
+      console.log("Wallet address: ", WalletAddress.address)
 
       await contract.methods.mint(pinataResponse.data.IpfsHash).send({
         from: WalletAddress.address,
@@ -667,6 +654,7 @@ const Web3Service = () => {
 
       setNft([pinataResponse.data.IpfsHash]);
     } catch (err) {
+      console.log(err);
       setError("Minting failed. Please try again.");
     }
 
