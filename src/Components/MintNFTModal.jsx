@@ -1,56 +1,77 @@
+import { useWallet } from '@alephium/web3-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 export default ({ isOpen, onOpenChange, trigger }) => {
-  //   const handleNftNameSubmit = () => {
-  //     if (nftName.trim()) {
-  //       console.log('NFT name submitted:', nftName);
-  //       setNftNameEntered(true); // Set to true when the name is entered
-  //       setError('');
-  //     } else {
-  //       toast.error('Please enter a name for the NFT.', {
-  //         position: 'top-right',
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //       });
-  //     }
-  //   };
+  const [error, setError] = useState('');
 
-  //   const handleFileUpload = async (e, nftName) => {
-  //     try {
-  //       setUploading(true);
-  //       let data = new FormData();
-  //       data.append('file', e.target.files[0]);
+  const [uploading, setUploading] = useState(false);
 
-  //       const response = await axios.post(
-  //         'https://api.pinata.cloud/pinning/pinFileToIPFS',
-  //         data,
-  //         {
-  //           headers: {
-  //             'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-  //             pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-  //             pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET_KEY,
-  //           },
-  //         },
-  //       );
+  const { connectionStatus, account } = useWallet();
 
-  //       const { IpfsHash } = response.data;
-  //       setUploading(false);
-  //       setPinataHash(IpfsHash);
-  //       setError('');
-  //       toast.success('Image Uploaded Successfully!');
-  //       mintNFT(pinataHash, nftName);
-  //     } catch (e) {
-  //       toast.error("Couldn't upload to pinata, please try again." + e);
-  //     }
-  //   };
+  const [file, setFile] = useState('');
+  const [name, setName] = useState('');
+
+  const uploadToPinata = async file => {
+    setUploading(true);
+
+    try {
+      let data = new FormData();
+      data.append('file', file);
+
+      const response = await axios.post(
+        'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        data,
+        {
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+            pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+            pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET_KEY,
+          },
+        },
+      );
+
+      const { IpfsHash } = response.data;
+      setError('');
+      return IpfsHash;
+      // mintNFT(pinataHash, name);
+    } catch (e) {
+      toast.error("Couldn't upload to pinata, please try again." + e);
+    }
+    setUploading(false);
+  };
+
+  const handleClickMintNow = async () => {
+    try {
+      if (window.alph) {
+        toast.error('Alephium wallet is not installed.');
+        return;
+      } else {
+        if (connectionStatus !== 'connected') {
+          toast.error('Alephium wallet is not connected.');
+          return;
+        }
+      }
+
+      if (name && file) {
+        // Uploading
+
+        const pinataHash = await uploadToPinata(file);
+
+        console.log({ pinataHash });
+        // Mint Now function
+      } else {
+        toast.error('Both name and file is required!');
+      }
+    } catch (e) {
+      toast.error('Minting failed due to an unknown error.');
+    }
+  };
 
   return (
     <Dialog.Root>
@@ -58,21 +79,31 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent">
-          <Dialog.Title className="DialogTitle">Edit profile</Dialog.Title>
+          <Dialog.Title className="DialogTitle">Mint Now</Dialog.Title>
           <Dialog.Description className="DialogDescription">
-            Make changes to your profile here. Click save when you're done.
+            Add a name and image for your new NFT.
           </Dialog.Description>
           <fieldset className="Fieldset">
             <label className="Label" htmlFor="name">
               Name
             </label>
-            <input className="Input" id="name" defaultValue="Pedro Duarte" />
+            <input
+              className="Input"
+              id="name"
+              defaultValue="Pedro Duarte"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
           </fieldset>
           <fieldset className="Fieldset">
             <label className="Label" htmlFor="username">
               File
             </label>
-            <input className="Input" type="file" />
+            <input
+              className="Input"
+              type="file"
+              onChange={e => setFile(e.target.files[0])}
+            />
           </fieldset>
           <div
             style={{
@@ -81,9 +112,11 @@ export default ({ isOpen, onOpenChange, trigger }) => {
               justifyContent: 'flex-end',
             }}
           >
-            <Dialog.Close asChild>
-              <button className="Button green">Mint Now</button>
-            </Dialog.Close>
+            {/* <Dialog.Close asChild> */}
+            <button className="Button green" onClick={handleClickMintNow}>
+              Mint Now
+            </button>
+            {/* </Dialog.Close> */}
           </div>
           <Dialog.Close asChild>
             <button className="IconButton" aria-label="Close">
