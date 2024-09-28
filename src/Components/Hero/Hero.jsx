@@ -1,5 +1,7 @@
+import { useWallet } from '@alephium/web3-react';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React from 'react';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import arrow from '../../Assets/Arrow design.png';
 import Marvel from '../../Assets/marvel.png';
@@ -12,7 +14,20 @@ const Hero = () => {
   const { nft, setNftCount, setNft, setError, minting, error, mintNFT } =
     Web3Service(); // Ensure mintNFT is imported from Web3Service
 
-  const [isMintModalOpen, setIsMintModalOpen] = useState(false);
+  const wallet = useWallet();
+
+  console.log({ wallet });
+
+  const handleClickMintNow = () => {
+    try {
+      // Check If Wallet is installed
+      // Check if wallet is connected
+      // Upload image to Pinata
+      // Mint NFT and execute smart contract.
+    } catch (e) {
+      toast.error('Minting failed due to an unknown error.');
+    }
+  };
 
   return (
     <div className="hero">
