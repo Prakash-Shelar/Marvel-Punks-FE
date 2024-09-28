@@ -1,3 +1,4 @@
+import { AlephiumWalletProvider } from "@alephium/web3-react";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,12 +8,12 @@ import Footer from "./Components/Footer/Footer";
 import Gallery from "./Components/Gallery/Gallery";
 import Hero from "./Components/Hero/Hero";
 import Navbar from "./Components/Navbar/Navbar";
-import { WalletProvider } from "./Components/WalletContext"; // Import WalletProvider
 
 const App = () => {
   return (
-    <WalletProvider>
-      {" "}
+    <AlephiumWalletProvider>
+      {/* AlephiumConnectProvider is now wrapping the whole app */}
+
       {/* Wrap your components with WalletProvider */}
       <Navbar />
       <div>
@@ -23,7 +24,7 @@ const App = () => {
       <Art />
       <Gallery />
       <Footer />
-    </WalletProvider>
+    </AlephiumWalletProvider>
   );
 };
 

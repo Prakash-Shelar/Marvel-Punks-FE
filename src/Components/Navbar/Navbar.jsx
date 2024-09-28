@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import './Navbar.css';
-import { motion } from 'framer-motion';
-import signupIcon from '../../Assets/signUpIcon.png';
-import { WalletContext } from '../WalletContext'; // Import WalletContext
+import { AlephiumConnectButton, useWallet } from "@alephium/web3-react";
+import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import signupIcon from "../../Assets/signUpIcon.png";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +10,7 @@ const Navbar = () => {
   const signupButtonRef = useRef(null);
   const ulElementRef = useRef(null);
 
-  const { address, web3Provider, connectWallet } = useContext(WalletContext); // Access wallet context
+  const { address } = useWallet();
 
   useEffect(() => {
     const navElement = ulElementRef.current.parentNode;
@@ -29,14 +29,16 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className='logo'>
+      <div className="logo">
         <h1>MARVEL PUNKS</h1>
       </div>
-      <motion.ul 
+      <motion.ul
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        ref={ulElementRef} className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+        ref={ulElementRef}
+        className={`nav-links ${isMenuOpen ? "open" : ""}`}
+      >
         <li>Marketplace</li>
         <li>Explore</li>
         <li>Artists</li>
@@ -46,28 +48,38 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        ref={searchContainerRef} className="connect-btn">
-        <button className='con-btn' onClick={connectWallet}>
-          {web3Provider == null 
-          ? 'Connect Wallet' 
-          : `Connected: ${address.slice(0,6)}...${address.slice(-4)}`}
+        ref={searchContainerRef}
+        className="connect-btn"
+      >
+        {address ? (
+          <button className="con-btn">
+            Connected: {address.slice(0, 6)}...{address.slice(-4)}
+          </button>
+        ) : (
+          <AlephiumConnectButton />
+        )}
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        ref={signupButtonRef}
+        className="signup-button"
+      >
+        <button className="sign-btn">
+          <img src={signupIcon} alt="Sign Up" />
         </button>
       </motion.div>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        ref={signupButtonRef} className="signup-button">
-        <button className='sign-btn'><img src={signupIcon} alt="Sign Up" /></button>
-      </motion.div>
-      <motion.div 
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className='hamburger-icon' onClick={toggleMenu}>
-          <div className="bar"></div>
-          <div className="bar"></div>
-          <div className="bar"></div>
+        className="hamburger-icon"
+        onClick={toggleMenu}
+      >
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
       </motion.div>
     </nav>
   );

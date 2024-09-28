@@ -1,43 +1,58 @@
-import React, { createContext, useState } from 'react';
-import Web3Modal from 'web3modal';
-import { BrowserProvider } from 'ethers';
+import React, { createContext, useState } from "react";
 
 // Create a context for the wallet
 export const WalletContext = createContext({
   address: null,
-  web3Provider: null,
-  connectWallet: () => {},
+  alephium: null,
+  connectAlephium: () => {}, // For Alephium connection
+  selectedWallet: null,
 });
 
-const providerOptions = {
-    // Add other wallet providers here if needed
-  };
-
 export const WalletProvider = ({ children }) => {
-  const [web3Provider, setWeb3Provider] = useState(null);
   const [address, setAddress] = useState(null);
+  const [alephium, setAlephium] = useState(null);
+  const [selectedWallet, setSelectedWallet] = useState(null);
 
-  async function connectWallet() {
+  // Function to connect Alephium Wallet
+  async function connectAlephium() {
     try {
-      const web3Modal = new Web3Modal({
-        cacheProvider: false,
-        providerOptions,
-      });
+      // Check if Alephium Wallet is available
+      if (window.alph) {
+        const accounts = await window.alph.getAccounts();
+        const alephiumAddress = accounts[0]?.address;
 
-      const web3ModalInstance = await web3Modal.connect();
-      const web3ModalProvider = new BrowserProvider(web3ModalInstance); // Ensure correct provider instantiation
-      const signer = await web3ModalProvider.getSigner();
-      const userAddress = await signer.getAddress();
-
-      setWeb3Provider(web3ModalProvider);
-      setAddress(userAddress);
+        if (alephiumAddress) {
+          setAlephium(window.alph);
+          setAddress(alephiumAddress);
+          setSelectedWallet("Alephium"); // Store wallet type
+        } else {
+          throw new Error("Alephium Wallet not connected");
+        }
+      } else {
+        throw new Error("Alephium Wallet not installed");
+      }
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      // If Alephium Wallet is not installed, notify the user
+      if (error.message === "Alephium Wallet not installed") {
+        alert(
+          "Alephium Wallet is not installed. Please install it from https://chrome.google.com/webstore/detail/alephium-wallet/"
+        );
+      } else {
+        console.error(error);
+      }
     }
   }
 
   return (
-    <WalletContext.Provider value={{ address, web3Provider, connectWallet }}>
+    <WalletContext.Provider
+      value={{
+        address,
+        alephium,
+        connectAlephium,
+        selectedWallet,
+      }}
+    >
       {children}
     </WalletContext.Provider>
   );
