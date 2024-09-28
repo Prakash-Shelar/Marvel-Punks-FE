@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Art from "./Components/Art/Art";
 import Clients from "./Components/Clients/Clients";
 import Footer from "./Components/Footer/Footer";
@@ -13,7 +15,10 @@ const App = () => {
       {" "}
       {/* Wrap your components with WalletProvider */}
       <Navbar />
-      <Hero />
+      <div>
+        <Hero />
+        <ToastContainer />
+      </div>
       <Clients />
       <Art />
       <Gallery />

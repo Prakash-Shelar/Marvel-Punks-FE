@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import Web3 from "web3";
 import { WalletContext } from "./WalletContext";
 
@@ -625,7 +626,6 @@ const Web3Service = () => {
     setMinting(true);
 
     try {
-      
       const imageUrl = `https://gateway.pinata.cloud/ipfs/${pinataHash}`;
       console.log("NFT Image URL:", imageUrl);
 
@@ -645,8 +645,8 @@ const Web3Service = () => {
           },
         }
       );
-      console.log("-----------------", pinataResponse.data.IpfsHash)
-      console.log("Wallet address: ", WalletAddress.address)
+      console.log("-----------------", pinataResponse.data.IpfsHash);
+      console.log("Wallet address: ", WalletAddress.address);
 
       await contract.methods.mint(pinataResponse.data.IpfsHash).send({
         from: WalletAddress.address,
@@ -655,7 +655,7 @@ const Web3Service = () => {
       setNft([pinataResponse.data.IpfsHash]);
     } catch (err) {
       console.log(err);
-      setError("Minting failed. Please try again.");
+      toast.error("Minting failed. Please try again.");
     }
 
     setMinting(false);
