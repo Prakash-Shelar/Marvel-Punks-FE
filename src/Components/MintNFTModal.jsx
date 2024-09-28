@@ -70,9 +70,9 @@ export default ({ isOpen, onOpenChange, trigger }) => {
           </fieldset>
           <fieldset className="Fieldset">
             <label className="Label" htmlFor="username">
-              Username
+              File
             </label>
-            <input className="Input" id="username" defaultValue="@peduarte" />
+            <input className="Input" type="file" />
           </fieldset>
           <div
             style={{
@@ -82,7 +82,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
             }}
           >
             <Dialog.Close asChild>
-              <button className="Button green">Save changes</button>
+              <button className="Button green">Mint Now</button>
             </Dialog.Close>
           </div>
           <Dialog.Close asChild>
