@@ -1,4 +1,11 @@
-import { DUST_AMOUNT, ExecutableScript, Script } from '@alephium/web3';
+import {
+  ALPH_TOKEN_ID,
+  DEFAULT_GAS_AMOUNT,
+  DUST_AMOUNT,
+  ExecutableScript,
+  ONE_ALPH,
+  Script,
+} from '@alephium/web3';
 // import { Mint } from './artifacts/ts/scripts';
 import { default as MintScriptJson } from './artifacts/Mint.ral.json';
 import { getContractByCodeHash } from './artifacts/ts/contracts';
@@ -18,6 +25,8 @@ export const mintToken = async (
       marvelPunksCollection,
       nftUri,
     },
-    attoAlphAmount: DUST_AMOUNT,
+    gasAmount: DEFAULT_GAS_AMOUNT,
+    attoAlphAmount: ONE_ALPH + DUST_AMOUNT,
+    // tokens: [{ id: ALPH_TOKEN_ID, amount: ONE_ALPH * 2n }],
   });
 };
