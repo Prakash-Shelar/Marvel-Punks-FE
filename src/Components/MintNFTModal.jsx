@@ -1,9 +1,11 @@
+import { stringToHex } from '@alephium/web3';
 import { useWallet } from '@alephium/web3-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { mintToken } from '../alephium/mint.service';
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -12,7 +14,8 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
   const [uploading, setUploading] = useState(false);
 
-  const { connectionStatus, account } = useWallet();
+  const { connectionStatus, signer } = useWallet();
+  const wallet = useWallet();
 
   const [file, setFile] = useState('');
   const [name, setName] = useState('');
@@ -49,6 +52,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
   const handleClickMintNow = async () => {
     try {
+      console.log({ wallet });
       if (window.alph) {
         toast.error('Alephium wallet is not installed.');
         return;
@@ -64,8 +68,18 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
         const pinataHash = await uploadToPinata(file);
 
-        console.log({ pinataHash });
         // Mint Now function
+        // const contractAddress =
+        //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
+        const contractAddress =
+          'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
+        mintToken(
+          signer,
+          contractAddress,
+          stringToHex(
+            `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
+          ),
+        );
       } else {
         toast.error('Both name and file is required!');
       }
