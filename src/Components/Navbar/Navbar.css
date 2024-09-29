@@ -12,6 +12,7 @@ nav {
   width: 570px;
   margin-left: 50px;
 }
+
 .logo h1 {
   font-size: 2.5rem;
   margin-top: 30px;
@@ -20,6 +21,7 @@ nav {
   -webkit-text-fill-color: transparent;
   overflow: hidden;
 }
+
 nav img {
   height: 40px;
   cursor: pointer;
@@ -90,12 +92,14 @@ nav ul li:hover::after {
   cursor: pointer;
   font-size: 19px;
   font-weight: 500;
-  transition: 0.3s ease, transform 0.3s ease; /* Smooth transition for the hover effect */
+  transition: 0.3s ease, transform 0.3s ease;
+  /* Smooth transition for the hover effect */
   margin-right: 10px;
 }
 
 .con-btn:hover {
-  transform: scale(1.05); /* Slightly scale up the button on hover */
+  transform: scale(1.05);
+  /* Slightly scale up the button on hover */
   filter: brightness(1.1);
 }
 
@@ -111,10 +115,13 @@ nav ul li:hover::after {
 }
 
 .sign-btn {
-  height: 50px;
-  width: 50px;
+  display: flex;
+  height: 45px;
+  width: 45px;
   border-radius: 50%;
   padding: 5px;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(to right, #995ffd, #ea59f6);
   border: 2px solid transparent;
   transition: all 0.3s ease;
@@ -143,7 +150,8 @@ nav ul li:hover::after {
 }
 
 .sign-btn img {
-  height: 20px;
+  height: 25px;
+  width: 25px;
 }
 
 .hamburger-icon {
@@ -181,11 +189,11 @@ nav ul li:hover::after {
     text-align: center;
   }
 
-  .logo{
+  .logo {
     margin-left: 10px;
   }
 
-  .logo h1{
+  .logo h1 {
     font-size: 2rem;
   }
 
@@ -213,6 +221,7 @@ nav ul li:hover::after {
   .logo-img {
     height: 80px;
   }
+
   nav ul {
     display: none;
     flex-direction: column;
@@ -254,7 +263,7 @@ nav ul li:hover::after {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1100px){
+@media (min-width: 1024px) and (max-width: 1100px) {
   nav ul li {
     margin: 0 1rem;
   }

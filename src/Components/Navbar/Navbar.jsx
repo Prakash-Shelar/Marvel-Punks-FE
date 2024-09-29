@@ -1,8 +1,8 @@
-import { AlephiumConnectButton, useWallet } from "@alephium/web3-react";
-import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
-import signupIcon from "../../Assets/signUpIcon.png";
-import "./Navbar.css";
+import { AlephiumConnectButton, useWallet } from '@alephium/web3-react';
+import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import signupIcon from '../../Assets/signUpIcon.png';
+import './Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         ref={ulElementRef}
-        className={`nav-links ${isMenuOpen ? "open" : ""}`}
+        className={`nav-links ${isMenuOpen ? 'open' : ''}`}
       >
         <li>Marketplace</li>
         <li>Explore</li>

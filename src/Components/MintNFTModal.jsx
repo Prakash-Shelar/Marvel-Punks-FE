@@ -16,6 +16,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
   const [file, setFile] = useState('');
   const [name, setName] = useState('');
+  const [preview, setPreview] = useState(null);
 
   const uploadToPinata = async file => {
     setUploading(true);
@@ -73,6 +74,17 @@ export default ({ isOpen, onOpenChange, trigger }) => {
     }
   };
 
+  const handleFileChange = e => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setPreview(URL.createObjectURL(selectedFile));
+    } else {
+      setFile(null);
+      setPreview(null); // Reset preview if no file is selected
+    }
+  };
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
@@ -96,15 +108,33 @@ export default ({ isOpen, onOpenChange, trigger }) => {
             />
           </fieldset>
           <fieldset className="Fieldset">
-            <label className="Label" htmlFor="username">
+            <label className="Label" htmlFor="fileInput">
               File
             </label>
             <input
               className="Input"
+              id="fileInput"
               type="file"
-              onChange={e => setFile(e.target.files[0])}
+              accept="image/*" // Ensure that only image files can be selected
+              onChange={handleFileChange}
             />
           </fieldset>
+
+          {file && (
+            <div>
+              <p>File name: {file.name}</p>
+            </div>
+          )}
+
+          {preview && (
+            <div>
+              <img
+                src={preview}
+                alt="Preview"
+                style={{ width: '200px', height: 'auto', marginTop: '10px' }}
+              />
+            </div>
+          )}
           <div
             style={{
               display: 'flex',
