@@ -12,3 +12,9 @@ import {
   HexString,
 } from "@alephium/web3";
 import { getContractByCodeHash } from "./contracts";
+import { default as MintScriptJson } from "../Mint.ral.json";
+
+export const Mint = new ExecutableScript<{
+  marvelPunksCollection: HexString;
+  nftUri: HexString;
+}>(Script.fromJson(MintScriptJson, "", []), getContractByCodeHash);
