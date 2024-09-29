@@ -11,7 +11,11 @@ import Navbar from './Components/Navbar/Navbar';
 
 const App = () => {
   return (
-    <AlephiumWalletProvider theme="simple-dark">
+    <AlephiumWalletProvider
+      theme="simple-dark"
+      network="testnet"
+      addressGroup={0}
+    >
       {/* AlephiumConnectProvider is now wrapping the whole app */}
 
       {/* Wrap your components with WalletProvider */}

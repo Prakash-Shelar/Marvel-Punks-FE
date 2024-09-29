@@ -136,7 +136,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
           {file && (
             <div>
-              <p>File name: {file.name}</p>
+              <p style={{ textAlign: 'center' }}>File name: {file.name}</p>
             </div>
           )}
 
@@ -145,7 +145,14 @@ export default ({ isOpen, onOpenChange, trigger }) => {
               <img
                 src={preview}
                 alt="Preview"
-                style={{ width: '200px', height: 'auto', marginTop: '10px' }}
+                style={{
+                  display: 'block',
+                  marginRight: 'auto',
+                  marginLeft: 'auto',
+                  width: '200px',
+                  height: 'auto',
+                  marginTop: '10px',
+                }}
               />
             </div>
           )}
