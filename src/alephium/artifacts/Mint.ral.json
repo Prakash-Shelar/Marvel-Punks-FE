@@ -1,14 +1,14 @@
 {
   "version": "v3.6.3",
   "name": "Mint",
-  "bytecodeTemplate": "0101030001000f13c40de0b6b3a76400001700b47a1600a2{1}0da3{1}0d0d{0}010418",
+  "bytecodeTemplate": "0101030001000f13c40de0b6b3a76400001700b47a1600a2{1}0da3{1}0d0d{0}010318",
   "fieldsSig": {
     "names": [
-      "marvelPunksCollection",
+      "marvelPunks",
       "nftUri"
     ],
     "types": [
-      "MarvelPunksCollection",
+      "MarvelPunks",
       "ByteVec"
     ],
     "isMutable": [

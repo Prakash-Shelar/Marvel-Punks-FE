@@ -2,7 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MarvelPunks, MarvelPunksCollection } from '.';
+import { MarvelPunks } from '.';
+import { default as devnetDeployments } from '../../deployments/.deployments.devnet.json';
+import { default as testnetDeployments } from '../../deployments/.deployments.testnet.json';
 
 function toDeployments(json) {
   const contracts = {
@@ -10,12 +12,6 @@ function toDeployments(json) {
       ...json.contracts['MarvelPunks'],
       contractInstance: MarvelPunks.at(
         json.contracts['MarvelPunks'].contractInstance.address,
-      ),
-    },
-    MarvelPunksCollection: {
-      ...json.contracts['MarvelPunksCollection'],
-      contractInstance: MarvelPunksCollection.at(
-        json.contracts['MarvelPunksCollection'].contractInstance.address,
       ),
     },
   };

@@ -72,7 +72,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
         // const contractAddress =
         //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
         const contractAddress =
-          'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
+          'ff979074a63e19865fb1447dedcb75d673f0247eab74c83732bf2819b5c09d00';
         mintToken(
           signer,
           contractAddress,

@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MarvelPunks, MarvelPunksCollection } from '.';
+import { MarvelPunks } from '.';
 
 let contracts = undefined;
 export function getContractByCodeHash(codeHash) {
   if (contracts === undefined) {
-    contracts = [MarvelPunks, MarvelPunksCollection];
+    contracts = [MarvelPunks];
   }
   const c = contracts.find(c => c.contract.hasCodeHash(codeHash));
   if (c === undefined) {

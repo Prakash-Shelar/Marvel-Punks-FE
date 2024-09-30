@@ -1,5 +1,4 @@
 import {
-  ALPH_TOKEN_ID,
   DEFAULT_GAS_AMOUNT,
   DUST_AMOUNT,
   ExecutableScript,
@@ -17,12 +16,12 @@ export const Mint = new ExecutableScript(
 
 export const mintToken = async (
   signerProvider,
-  marvelPunksCollection,
+  marvelPunks,
   nftUri,
 ) => {
   return await Mint.execute(signerProvider, {
     initialFields: {
-      marvelPunksCollection,
+      marvelPunks,
       nftUri,
     },
     gasAmount: DEFAULT_GAS_AMOUNT,

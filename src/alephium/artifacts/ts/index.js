@@ -3,5 +3,4 @@
 /* eslint-disable */
 
 export * from "./MarvelPunks";
-export * from "./MarvelPunksCollection";
 export * from "./scripts";

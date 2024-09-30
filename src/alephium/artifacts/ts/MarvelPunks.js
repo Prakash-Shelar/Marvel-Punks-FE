@@ -42,6 +42,12 @@ class Factory extends ContractFactory {
         getContractByCodeHash,
       );
     },
+    getTotalSupply: async params => {
+      return testMethod(this, 'getTotalSupply', params, getContractByCodeHash);
+    },
+    mint: async params => {
+      return testMethod(this, 'mint', params, getContractByCodeHash);
+    },
   };
 
   stateForTest(initFields, asset, address) {
@@ -54,7 +60,7 @@ export const MarvelPunks = new Factory(
   Contract.fromJson(
     MarvelPunksContractJson,
     '',
-    '4897086210869e612d82995b765a447c5319a55a56e8a0c3c07b4d9ca81e15b1',
+    '39427b17bdd45b763260f281b9dbc55c5b0ac39972f510b357a7c5f5cb56eb92',
     [],
   ),
 );
@@ -88,6 +94,24 @@ export class MarvelPunksInstance extends ContractInstance {
         getContractByCodeHash,
       );
     },
+    getTotalSupply: async params => {
+      return callMethod(
+        MarvelPunks,
+        this,
+        'getTotalSupply',
+        params === undefined ? {} : params,
+        getContractByCodeHash,
+      );
+    },
+    mint: async params => {
+      return callMethod(
+        MarvelPunks,
+        this,
+        'mint',
+        params,
+        getContractByCodeHash,
+      );
+    },
   };
 
   transact = {
@@ -96,6 +120,12 @@ export class MarvelPunksInstance extends ContractInstance {
     },
     getCollectionIndex: async params => {
       return signExecuteMethod(MarvelPunks, this, 'getCollectionIndex', params);
+    },
+    getTotalSupply: async params => {
+      return signExecuteMethod(MarvelPunks, this, 'getTotalSupply', params);
+    },
+    mint: async params => {
+      return signExecuteMethod(MarvelPunks, this, 'mint', params);
     },
   };
 
