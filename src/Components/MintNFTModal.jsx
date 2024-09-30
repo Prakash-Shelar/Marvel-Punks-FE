@@ -14,7 +14,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
   const [uploading, setUploading] = useState(false);
 
-  const { connectionStatus, signer } = useWallet();
+  const { connectionStatus, signer, account } = useWallet();
   const wallet = useWallet();
 
   const [file, setFile] = useState('');
@@ -53,6 +53,13 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   const handleClickMintNow = async () => {
     try {
       console.log({ wallet });
+
+      // const addressState = await wallet.nodeProvider.fetchNFTCollectionMetaData(
+      //   'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601',
+      // );
+
+      // console.log({ addressState });
+
       if (window.alph) {
         toast.error('Alephium wallet is not installed.');
         return;
@@ -71,19 +78,38 @@ export default ({ isOpen, onOpenChange, trigger }) => {
         // Mint Now function
         // const contractAddress =
         //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
-        const contractAddress =
+        const contractAddress = '29iGBUG316WmfyxWpQ6oaiA6qgDNhJ19Y9kzFnKNpEsbn';
+        const contractId =
           'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
+
         mintToken(
           signer,
-          contractAddress,
+          contractId,
           stringToHex(
             `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
           ),
+          account,
         );
-      } else {
-        toast.error('Both name and file is required!');
+
+        // const base58Address = bs58.decode(addressBytes);
+
+        // const contract = new MarvelPunksCollectionInstance(contractAddress);
+
+        // const resp = await contract.transact.mint({
+        //   args: {
+        //     nftUri: stringToHex(
+        //       `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
+        //     ),
+        //   },
+        //   signer,
+        //   gasAmount: DEFAULT_GAS_AMOUNT,
+        //   attoAlphAmount: ONE_ALPH * 2n,
+        // });
+
+        // console.log({ resp });
       }
     } catch (e) {
+      console.log({ e });
       toast.error('Minting failed due to an unknown error.');
     }
   };
