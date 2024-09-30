@@ -4,9 +4,6 @@ Marvel Punks is a decentralized application (dApp) built on the Alephium blockch
 <h1>Table of Contents</h1>
 <li>Introduction</li>
 <li>Features</li>
-<li>Tech Stack</li>
-<li>Installation</li>
-<li>Usage</li>
 <li>Known Issues</li>
 <li>Future Plans</li>
 
@@ -18,3 +15,17 @@ Marvel Punks provides a platform for Marvel fans to mint and showcase their favo
 <b>NFT Minting:</b> Users can mint NFTs, though there are current limitations with transaction validation.<br>
 <b>Blockchain Security:</b> Leveraging Alephium’s scalable and secure UTXO-based model.<br>
 <b>User-Friendly Interface:</b> Simple and intuitive UI designed for both blockchain experts and newcomers.
+
+<h1>Known Issues</h1>
+<b>Transaction Validation:</b>
+The minting process works until the transaction validation stage. We are currently investigating and working to resolve this issue.
+
+<h1>Future Plans</h1>
+We are committed to continuing development on Marvel Punks post-hackathon. Planned features include:
+
+Full NFT Creation:
+Users will be able to fully customize their NFTs before minting.
+NFT Marketplace:
+A marketplace for users to buy, sell, and trade their Marvel-inspired NFTs.
+Enhanced Transaction Handling:
+Fixing the current transaction validation issue and improving the minting process.
