@@ -15,6 +15,6 @@ Marvel Punks provides a platform for Marvel fans to mint and showcase their favo
 
 <h1>Features</h1>
 <b>Alephium Wallet Integration:</b> Seamlessly connect your Alephium wallet to interact with the dApp.<br>
-<b>NFT Minting:</b> Users can mint NFTs, though there are current limitations with transaction validation.
-<b>Blockchain Security:</b> Leveraging Alephium’s scalable and secure UTXO-based model.
+<b>NFT Minting:</b> Users can mint NFTs, though there are current limitations with transaction validation.<br>
+<b>Blockchain Security:</b> Leveraging Alephium’s scalable and secure UTXO-based model.<br>
 <b>User-Friendly Interface:</b> Simple and intuitive UI designed for both blockchain experts and newcomers.
