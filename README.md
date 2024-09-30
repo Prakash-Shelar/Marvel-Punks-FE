@@ -21,11 +21,8 @@ Marvel Punks provides a platform for Marvel fans to mint and showcase their favo
 The minting process works until the transaction validation stage. We are currently investigating and working to resolve this issue.
 
 <h1>Future Plans</h1>
-We are committed to continuing development on Marvel Punks post-hackathon. Planned features include:
+We are committed to continuing development on Marvel Punks post-hackathon. Planned features include:<br>
 
-Full NFT Creation:
-Users will be able to fully customize their NFTs before minting.
-NFT Marketplace:
-A marketplace for users to buy, sell, and trade their Marvel-inspired NFTs.
-Enhanced Transaction Handling:
-Fixing the current transaction validation issue and improving the minting process.
+<b>Full NFT Creation:</b> Users will be able to fully customize their NFTs before minting.<br>
+<b>NFT Marketplace:</b> A marketplace for users to buy, sell, and trade their Marvel-inspired NFTs.<br>
+<b>Enhanced Transaction Handling:</b> Fixing the current transaction validation issue and improving the minting process.
