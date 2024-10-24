@@ -1,5 +1,4 @@
 import {
-  ALPH_TOKEN_ID,
   DEFAULT_GAS_AMOUNT,
   DUST_AMOUNT,
   ExecutableScript,

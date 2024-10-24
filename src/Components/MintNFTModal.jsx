@@ -1,20 +1,26 @@
-import { stringToHex } from '@alephium/web3';
+import {
+  DEFAULT_GAS_AMOUNT,
+  MINIMAL_CONTRACT_DEPOSIT,
+  web3,
+} from '@alephium/web3';
 import { useWallet } from '@alephium/web3-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { mintToken } from '../alephium/mint.service';
+import { MarvelPunksCollection } from '../alephium/artifacts/ts';
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 export default ({ isOpen, onOpenChange, trigger }) => {
+  web3.setCurrentNodeProvider('https://node.testnet.alephium.org');
+
   const [error, setError] = useState('');
 
   const [uploading, setUploading] = useState(false);
 
-  const { connectionStatus, signer } = useWallet();
+  const { connectionStatus, signer, account } = useWallet();
   const wallet = useWallet();
 
   const [file, setFile] = useState('');
@@ -66,20 +72,94 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       if (name && file) {
         // Uploading
 
-        const pinataHash = await uploadToPinata(file);
+        // const pinataHash = await uploadToPinata(file);
 
         // Mint Now function
         // const contractAddress =
         //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
-        const contractAddress =
+        const contractAddress = '29iGBUG316WmfyxWpQ6oaiA6qgDNhJ19Y9kzFnKNpEsbn'; // Deployed by Account 1, Group 1
+        // const contractAddress = '28JZ1jeMAiVPFggncA1cGu1cRfzwFm8pGFjT2T6uqBnV5'; // Deployed by Account 5, Group 0
+        const contractId =
           'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
-        mintToken(
-          signer,
-          contractAddress,
-          stringToHex(
-            `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
-          ),
-        );
+
+        // CONTRACT SCRIPT METHOD
+        // try {
+        //   mintToken(
+        //     signer,
+        //     contractId,
+        //     stringToHex(
+        //       `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/`,
+        //     ),
+        //   );
+        // } catch (error) {
+        //   console.log(error);
+        // }
+
+        // CONTRACT INSTANCE Method
+        try {
+          const marvelPunkCollection =
+            MarvelPunksCollection.at(contractAddress);
+          console.log('Contract address', marvelPunkCollection.address);
+
+          const state = await marvelPunkCollection.fetchState({});
+          console.log('Contract State', state);
+          const index = await marvelPunkCollection.groupIndex;
+          console.log('Group Index', index.toString());
+
+          const totalSupply = await marvelPunkCollection.view.totalSupply({
+            groupIndexOfTransaction: 1,
+            signer,
+            attoAlphAmount: MINIMAL_CONTRACT_DEPOSIT,
+            gasAmount: DEFAULT_GAS_AMOUNT,
+          });
+          console.log('Total Supply', totalSupply);
+
+          // const resp = await marvelPunkCollection.transact.mint({
+          //   args: {
+          //     nftUri: stringToHex(`NFT_URI`),
+          //   },
+          //   signer,
+          //   attoAlphAmount: ONE_ALPH * 2n,
+          //   gasAmount: DEFAULT_GAS_AMOUNT * 4,
+          // });
+          // console.log('Contract Response', resp);
+        } catch (error) {
+          console.log(error);
+        }
+
+        // NODE PROVIDER Method
+        // const retryFetch = fetchRetry.default(fetch, {
+        //   retries: 10,
+        //   retryDelay: 1000,
+        // });
+        // const nodeProvider = new NodeProvider(
+        //   'https://node.testnet.alephium.org',
+        //   undefined,
+        //   retryFetch,
+        // );
+
+        // console.log('--NodeProvider', nodeProvider);
+
+        // try {
+        //   const result =
+        //     await nodeProvider.contracts.postContractsMulticallContract({
+        //       calls: [
+        //         {
+        //           // interestedContracts: contractAddress,
+        //           address: tokenIdFromAddress(contractAddress),
+        //           group: 1,
+        //           callerAddress: account.address,
+        //           methodIndex: 0,
+        //           args: {
+        //             nftUri: `TOKEN_URI`,
+        //           },
+        //         },
+        //       ],
+        //     });
+        //   console.log('---------------', result);
+        // } catch (error) {
+        //   console.log(error);
+        // }
       } else {
         toast.error('Both name and file is required!');
       }

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
 // Create a context for the wallet
 export const WalletContext = createContext({
@@ -24,19 +24,19 @@ export const WalletProvider = ({ children }) => {
         if (alephiumAddress) {
           setAlephium(window.alph);
           setAddress(alephiumAddress);
-          setSelectedWallet("Alephium"); // Store wallet type
+          setSelectedWallet('Alephium'); // Store wallet type
         } else {
-          throw new Error("Alephium Wallet not connected");
+          throw new Error('Alephium Wallet not connected');
         }
       } else {
-        throw new Error("Alephium Wallet not installed");
+        throw new Error('Alephium Wallet not installed');
       }
     } catch (error) {
       console.log(error);
       // If Alephium Wallet is not installed, notify the user
-      if (error.message === "Alephium Wallet not installed") {
+      if (error.message === 'Alephium Wallet not installed') {
         alert(
-          "Alephium Wallet is not installed. Please install it from https://chrome.google.com/webstore/detail/alephium-wallet/"
+          'Alephium Wallet is not installed. Please install it from https://chrome.google.com/webstore/detail/alephium-wallet/',
         );
       } else {
         console.error(error);
