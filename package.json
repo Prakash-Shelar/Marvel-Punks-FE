@@ -3,14 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@alephium/web3": "^1.7.3",
-    "@alephium/web3-react": "^1.7.3",
-    "@alephium/web3-test": "^1.7.3",
-=======
     "@alephium/web3": "^1.8.2",
     "@alephium/web3-react": "^1.8.2",
->>>>>>> prakash
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
