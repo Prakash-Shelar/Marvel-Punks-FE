@@ -1,7 +1,6 @@
 import { ExecutableScript, Script } from '@alephium/web3';
 // import { Mint } from './artifacts/ts/scripts';
 import {
-  ALPH_TOKEN_ID,
   DEFAULT_GAS_AMOUNT,
   DUST_AMOUNT,
   ONE_ALPH,

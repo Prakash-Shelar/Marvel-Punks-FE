@@ -1,15 +1,18 @@
-import { stringToHex } from '@alephium/web3';
+import {
+  web3
+} from '@alephium/web3';
 import { useWallet } from '@alephium/web3-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { mintToken } from '../alephium/mint.service';
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 export default ({ isOpen, onOpenChange, trigger }) => {
+  web3.setCurrentNodeProvider('https://node.testnet.alephium.org');
+
   const [error, setError] = useState('');
 
   const [uploading, setUploading] = useState(false);
@@ -73,40 +76,22 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       if (name && file) {
         // Uploading
 
-        const pinataHash = await uploadToPinata(file);
+        // const pinataHash = await uploadToPinata(file);
 
         // Mint Now function
         // const contractAddress =
         //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
-        const contractAddress = '29iGBUG316WmfyxWpQ6oaiA6qgDNhJ19Y9kzFnKNpEsbn';
-        const contractId =
+        const contractAddress =
           'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
-
         mintToken(
           signer,
-          contractId,
+          contractAddress,
           stringToHex(
             `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
           ),
-          account,
         );
-
-        // const base58Address = bs58.decode(addressBytes);
-
-        // const contract = new MarvelPunksCollectionInstance(contractAddress);
-
-        // const resp = await contract.transact.mint({
-        //   args: {
-        //     nftUri: stringToHex(
-        //       `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/${pinataHash}`,
-        //     ),
-        //   },
-        //   signer,
-        //   gasAmount: DEFAULT_GAS_AMOUNT,
-        //   attoAlphAmount: ONE_ALPH * 2n,
-        // });
-
-        // console.log({ resp });
+      } else {
+        toast.error('Both name and file is required!');
       }
     } catch (e) {
       console.log({ e });

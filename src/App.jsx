@@ -14,7 +14,7 @@ const App = () => {
     <AlephiumWalletProvider
       theme="simple-dark"
       network="testnet"
-      addressGroup={0}
+      addressGroup={1}
     >
       {/* AlephiumConnectProvider is now wrapping the whole app */}
 
