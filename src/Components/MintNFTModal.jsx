@@ -8,11 +8,13 @@ import { useWallet } from '@alephium/web3-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { MarvelPunksCollection } from '../alephium/artifacts/ts';
+import { WalletContext } from "./WalletContext";
 
 export default ({ isOpen, onOpenChange, trigger }) => {
+  const WalletAddress = useContext(WalletContext);
   web3.setCurrentNodeProvider(process.env.REACT_APP_ALEPHIUM_NODE);
 
   const [uploading, setUploading] = useState(false);
@@ -54,6 +56,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       const metadata = {
         name: name,
         image: imageUrl,
+        by: WalletAddress.address
       };
 
       let pinataResponse = await axios.post(
@@ -66,7 +69,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
           },
         },
       );
-      console.log('-----------------', pinataResponse.data.IpfsHash);
 
       const nftUri = `https://yellow-calm-cricket-726.mypinata.cloud/ipfs/${pinataResponse.data.IpfsHash}`;
       return nftUri;
@@ -91,7 +93,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
       if (name && file) {
         const nftUri = await uploadToPinata(file, name);
-        console.log('NFT Metadata URI:', nftUri, typeof nftUri);
 
         // CONTRACT INSTANCE Method
         try {
