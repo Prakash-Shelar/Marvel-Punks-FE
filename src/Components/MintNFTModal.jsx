@@ -1,6 +1,5 @@
 import {
   DEFAULT_GAS_AMOUNT,
-  MINIMAL_CONTRACT_DEPOSIT,
   ONE_ALPH,
   stringToHex,
   web3,
@@ -12,27 +11,21 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { MarvelPunksCollection } from '../alephium/artifacts/ts';
-import { mintToken } from '../alephium/mint.service';
-
-const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 export default ({ isOpen, onOpenChange, trigger }) => {
-  web3.setCurrentNodeProvider('https://node.testnet.alephium.org');
-
-  const [error, setError] = useState('');
+  web3.setCurrentNodeProvider(process.env.REACT_APP_ALEPHIUM_NODE);
 
   const [uploading, setUploading] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const { connectionStatus, signer, account } = useWallet();
-  const wallet = useWallet();
 
   const [file, setFile] = useState('');
   const [name, setName] = useState('');
   const [preview, setPreview] = useState(null);
 
-  const uploadToPinata = async file => {
+  const uploadToPinata = async (file, name) => {
     setUploading(true);
 
     try {
@@ -52,8 +45,29 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       );
 
       const { IpfsHash } = response.data;
-      setError('');
-      return IpfsHash;
+
+      const imageUrl = `https://gateway.pinata.cloud/ipfs/${IpfsHash}`;
+
+      // Upload Metadata
+      const metadata = {
+        name: name,
+        image: imageUrl,
+      };
+
+      let pinataResponse = await axios.post(
+        'https://api.pinata.cloud/pinning/pinJSONToIPFS',
+        metadata,
+        {
+          headers: {
+            pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+            pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET_KEY,
+          },
+        },
+      );
+      console.log('-----------------', pinataResponse.data.IpfsHash);
+
+      const nftUri = `${pinataResponse.data.IpfsHash}`
+      return nftUri;
     } catch (e) {
       toast.error("Couldn't upload to pinata, please try again." + e);
     }
@@ -63,14 +77,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   const handleClickMintNow = async () => {
     setIsLoading(true);
     try {
-      console.log({ wallet });
-
-      // const addressState = await wallet.nodeProvider.fetchNFTCollectionMetaData(
-      //   'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601',
-      // );
-
-      // console.log({ addressState });
-
       if (window.alph) {
         toast.error('Alephium wallet is not installed.');
         return;
@@ -82,51 +88,18 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       }
 
       if (name && file) {
-        // Uploading
+        const nftUri = await uploadToPinata(file, name);
+        console.log('NFT Metadata URI:', nftUri);
 
-        const pinataHash = await uploadToPinata(file);
-        console.log('Pinata Hash:', pinataHash);
-
-        // Mint Now function
-        // const contractAddress =
-        //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
-        const contractAddress = '29iGBUG316WmfyxWpQ6oaiA6qgDNhJ19Y9kzFnKNpEsbn'; // Deployed by Account 1, Group 1
-        // const contractAddress = '28JZ1jeMAiVPFggncA1cGu1cRfzwFm8pGFjT2T6uqBnV5'; // Deployed by Account 5, Group 0
-        const contractId = process.env.REACT_APP_SMART_CONTRACT_ADDRESS;
-
-        // CONTRACT SCRIPT METHOD
-        try {
-          const response = mintToken(
-            signer,
-            contractId,
-            stringToHex(
-              `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/`,
-              pinataHash,
-            ),
-          );
-          console.log('result', response);
-        } catch (error) {
-          console.log(error);
-        }
         // CONTRACT INSTANCE Method
         try {
-          const marvelPunkCollection =
-            MarvelPunksCollection.at(contractAddress);
-          console.log('Contract address', marvelPunkCollection.address);
-          const state = await marvelPunkCollection.fetchState({});
-          console.log('Contract State', state);
-          const index = await marvelPunkCollection.groupIndex;
-          console.log('Group Index', index.toString());
-          const totalSupply = await marvelPunkCollection.view.totalSupply({
-            groupIndexOfTransaction: 1,
-            signer,
-            attoAlphAmount: MINIMAL_CONTRACT_DEPOSIT,
-            gasAmount: DEFAULT_GAS_AMOUNT,
-          });
-          console.log('Total Supply', totalSupply);
+          const marvelPunkCollection = MarvelPunksCollection.at(
+            process.env.REACT_APP_SMART_CONTRACT_ADDRESS,
+          );
+
           const resp = await marvelPunkCollection.transact.mint({
             args: {
-              nftUri: stringToHex(`NFT_URI`),
+              nftUri: stringToHex(nftUri),
             },
             signer,
             attoAlphAmount: ONE_ALPH * 2n,
@@ -138,37 +111,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
           console.error('Minting failed:', error);
           toast.error('Minting failed! Please try again.');
         }
-        // NODE PROVIDER Method
-        // const retryFetch = fetchRetry.default(fetch, {
-        //   retries: 10,
-        //   retryDelay: 1000,
-        // });
-        // const nodeProvider = new NodeProvider(
-        //   'https://node.testnet.alephium.org',
-        //   undefined,
-        //   retryFetch,
-        // );
-        // console.log('--NodeProvider', nodeProvider);
-        // try {
-        //   const result =
-        //     await nodeProvider.contracts.postContractsMulticallContract({
-        //       calls: [
-        //         {
-        //           // interestedContracts: contractAddress,
-        //           address: tokenIdFromAddress(contractAddress),
-        //           group: 1,
-        //           callerAddress: account.address,
-        //           methodIndex: 0,
-        //           args: {
-        //             nftUri: `TOKEN_URI`,
-        //           },
-        //         },
-        //       ],
-        //     });
-        //   console.log('---------------', result);
-        // } catch (error) {
-        //   console.log(error);
-        // }
       } else {
         toast.error('Both name and file is required!');
       }
@@ -223,7 +165,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
               onChange={handleFileChange}
             />
           </fieldset>
-
           {file && (
             <div>
               <p style={{ textAlign: 'center' }}>File name: {file.name}</p>
