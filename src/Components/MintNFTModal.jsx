@@ -1,6 +1,8 @@
 import {
   DEFAULT_GAS_AMOUNT,
   MINIMAL_CONTRACT_DEPOSIT,
+  ONE_ALPH,
+  stringToHex,
   web3,
 } from '@alephium/web3';
 import { useWallet } from '@alephium/web3-react';
@@ -10,6 +12,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { MarvelPunksCollection } from '../alephium/artifacts/ts';
+import { mintToken } from '../alephium/mint.service';
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -19,6 +22,8 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   const [error, setError] = useState('');
 
   const [uploading, setUploading] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { connectionStatus, signer, account } = useWallet();
   const wallet = useWallet();
@@ -49,7 +54,6 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       const { IpfsHash } = response.data;
       setError('');
       return IpfsHash;
-      // mintNFT(pinataHash, name);
     } catch (e) {
       toast.error("Couldn't upload to pinata, please try again." + e);
     }
@@ -57,6 +61,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   };
 
   const handleClickMintNow = async () => {
+    setIsLoading(true);
     try {
       console.log({ wallet });
 
@@ -79,28 +84,30 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       if (name && file) {
         // Uploading
 
-        // const pinataHash = await uploadToPinata(file);
+        const pinataHash = await uploadToPinata(file);
+        console.log('Pinata Hash:', pinataHash);
 
         // Mint Now function
         // const contractAddress =
         //   marvelPunksCollectionConfig.marvelPunksCollectionAddress;
         const contractAddress = '29iGBUG316WmfyxWpQ6oaiA6qgDNhJ19Y9kzFnKNpEsbn'; // Deployed by Account 1, Group 1
         // const contractAddress = '28JZ1jeMAiVPFggncA1cGu1cRfzwFm8pGFjT2T6uqBnV5'; // Deployed by Account 5, Group 0
-        const contractId =
-          'df3550a24f10ff8574ce0a97ca3b73068778499f64addb2c0fe0bb39433f5601';
+        const contractId = process.env.REACT_APP_SMART_CONTRACT_ADDRESS;
 
         // CONTRACT SCRIPT METHOD
-        // try {
-        //   mintToken(
-        //     signer,
-        //     contractId,
-        //     stringToHex(
-        //       `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/`,
-        //     ),
-        //   );
-        // } catch (error) {
-        //   console.log(error);
-        // }
+        try {
+          const response = mintToken(
+            signer,
+            contractId,
+            stringToHex(
+              `https://amaranth-cold-cheetah-718.mypinata.cloud/ipfs/`,
+              pinataHash,
+            ),
+          );
+          console.log('result', response);
+        } catch (error) {
+          console.log(error);
+        }
         // CONTRACT INSTANCE Method
         try {
           const marvelPunkCollection =
@@ -117,17 +124,19 @@ export default ({ isOpen, onOpenChange, trigger }) => {
             gasAmount: DEFAULT_GAS_AMOUNT,
           });
           console.log('Total Supply', totalSupply);
-          // const resp = await marvelPunkCollection.transact.mint({
-          //   args: {
-          //     nftUri: stringToHex(`NFT_URI`),
-          //   },
-          //   signer,
-          //   attoAlphAmount: ONE_ALPH * 2n,
-          //   gasAmount: DEFAULT_GAS_AMOUNT * 4,
-          // });
-          // console.log('Contract Response', resp);
+          const resp = await marvelPunkCollection.transact.mint({
+            args: {
+              nftUri: stringToHex(`NFT_URI`),
+            },
+            signer,
+            attoAlphAmount: ONE_ALPH * 2n,
+            gasAmount: DEFAULT_GAS_AMOUNT * 4,
+          });
+          console.log('Contract Response', resp);
+          toast.success('Minting successful!');
         } catch (error) {
-          console.log(error);
+          console.error('Minting failed:', error);
+          toast.error('Minting failed! Please try again.');
         }
         // NODE PROVIDER Method
         // const retryFetch = fetchRetry.default(fetch, {
@@ -245,9 +254,17 @@ export default ({ isOpen, onOpenChange, trigger }) => {
             }}
           >
             {/* <Dialog.Close asChild> */}
-            <button className="Button green" onClick={handleClickMintNow}>
-              Mint Now
-            </button>
+            {isLoading ? (
+              // Loading indicator while isLoading is true
+              <button className="Button green" disabled>
+                Minting...
+              </button>
+            ) : (
+              // "Mint Now" button when isLoading is false
+              <button className="Button green" onClick={handleClickMintNow}>
+                Mint Now
+              </button>
+            )}
             {/* </Dialog.Close> */}
           </div>
           <Dialog.Close asChild>
