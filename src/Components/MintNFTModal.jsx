@@ -17,7 +17,9 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
   const [uploading, setUploading] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isMinting, setIsMinting] = useState(false);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const { connectionStatus, signer, account } = useWallet();
 
@@ -66,7 +68,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
       );
       console.log('-----------------', pinataResponse.data.IpfsHash);
 
-      const nftUri = `${pinataResponse.data.IpfsHash}`
+      const nftUri = `https://yellow-calm-cricket-726.mypinata.cloud/ipfs/${pinataResponse.data.IpfsHash}`;
       return nftUri;
     } catch (e) {
       toast.error("Couldn't upload to pinata, please try again." + e);
@@ -75,7 +77,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   };
 
   const handleClickMintNow = async () => {
-    setIsLoading(true);
+    setIsMinting(true);
     try {
       if (window.alph) {
         toast.error('Alephium wallet is not installed.');
@@ -89,7 +91,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
 
       if (name && file) {
         const nftUri = await uploadToPinata(file, name);
-        console.log('NFT Metadata URI:', nftUri);
+        console.log('NFT Metadata URI:', nftUri, typeof nftUri);
 
         // CONTRACT INSTANCE Method
         try {
@@ -107,6 +109,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
           });
           console.log('Contract Response', resp);
           toast.success('Minting successful!');
+          setDialogOpen(false);
         } catch (error) {
           console.error('Minting failed:', error);
           toast.error('Minting failed! Please try again.');
@@ -117,6 +120,8 @@ export default ({ isOpen, onOpenChange, trigger }) => {
     } catch (e) {
       console.log({ e });
       toast.error('Minting failed due to an unknown error.');
+    } finally {
+      setIsMinting(false); // Re-enable button after minting completes
     }
   };
 
@@ -132,7 +137,7 @@ export default ({ isOpen, onOpenChange, trigger }) => {
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
@@ -195,17 +200,13 @@ export default ({ isOpen, onOpenChange, trigger }) => {
             }}
           >
             {/* <Dialog.Close asChild> */}
-            {isLoading ? (
-              // Loading indicator while isLoading is true
-              <button className="Button green" disabled>
-                Minting...
-              </button>
-            ) : (
-              // "Mint Now" button when isLoading is false
-              <button className="Button green" onClick={handleClickMintNow}>
-                Mint Now
-              </button>
-            )}
+            <button
+              className="Button green"
+              onClick={handleClickMintNow}
+              disabled={isMinting}
+            >
+              {isMinting ? 'Uploading...' : 'Mint Now'}
+            </button>
             {/* </Dialog.Close> */}
           </div>
           <Dialog.Close asChild>
